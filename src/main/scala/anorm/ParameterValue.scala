@@ -1,0 +1,3 @@
+package anorm
+
+trait ProductParameterValueSupport extends ProductToSql with ProductToStatement
