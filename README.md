@@ -32,8 +32,18 @@ libraryDependencies += "io.buildo" %% "anorm-extensions" % "0.1.0"
 ```
 
 ## Usage
-Mix in the `ProductParameterValueSupport` trait.
-That's it.
+`import anorm.ProductParameterValueSupport._`
+
+that's it.
+
+Alternatively, if you use the cake pattern or similar, you can mix in the `ProductParameterValueSupport` trait:
+
+```scala
+trait MyModule extends anorm.ProductParameterValueSupport {
+  ...
+}
+```
+
 
 
 ## Why
