@@ -9,11 +9,9 @@ case class User(name: String, age: Int)
 
 val users = List(User("Federico", 26), User("Gabriele", 25))
 
-val query = s"where (NAME, AGE) in ($filterList)""")
-
 val query = SQL"""
   select * from USERS
-  where (NAME, AGE) in $users
+  where (NAME, AGE) in ($users)
 """
 ```
 
@@ -21,7 +19,7 @@ produces
 
 ```SQL
 SELECT * FROM USERS
-WHERE (NAME, AGE) IN ((Federico, 26), (Gabriele, 25))
+WHERE (NAME, AGE) IN (('Federico', 26), ('Gabriele', 25))
 ```
 
 ## Installation
@@ -45,7 +43,7 @@ When using [anorm](https://github.com/playframework/anorm) this
 val params = List("a", "b", "c")
 val query = SQL"""
   select * from FOO
-  where PARAM in $params
+  where PARAM in ($params)
 """
 ``` 
 
@@ -62,7 +60,7 @@ However, passing a `List` of tuples (or any other product type) doesn't work:
 val params = List(("a","b"), ("c","d"), ("e","f"))
 val query = SQL"""
   select * from FOO
-  where (PARAM1, PARAM2) in $params
+  where (PARAM1, PARAM2) in ($params)
 """
 ```
 
