@@ -6,9 +6,9 @@ Serialize `Product` directly in [anorm](https://github.com/playframework/anorm) 
 Using sbt:
 
 ```sbt
-resolvers += Resolver.jcenterRepo
+resolvers += Resolver.bintrayRepo("buildo", "maven")
 
-libraryDependencies += "io.buildo" %% "anorm-extension" % "0.1.0"
+libraryDependencies += "io.buildo" %% "anorm-extensions" % "0.1.0"
 ```
 
 ## Usage
