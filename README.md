@@ -1,3 +1,5 @@
+![](https://travis-ci.org/buildo/anorm-extensions.svg)
+
 # anorm-extensions
 
 Anorm to `ParameterValue` implicit conversion is *NOT* available for multiple values `IN` clauses:
