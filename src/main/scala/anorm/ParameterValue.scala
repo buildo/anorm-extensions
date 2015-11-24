@@ -1,3 +1,5 @@
 package anorm
 
 trait ProductParameterValueSupport extends ProductToSql with ProductToStatement
+
+object ProductParameterValueSupport extends ProductParameterValueSupport
