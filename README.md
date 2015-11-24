@@ -1,6 +1,28 @@
 # anorm-extensions
 
-Serialize `Product` directly in [anorm](https://github.com/playframework/anorm) queries.
+Directly use instances of `Product` as parameters in [anorm](https://github.com/playframework/anorm) queries.
+
+## Example
+
+```scala
+case class User(name: String, age: Int)
+
+val users = List(User("Federico", 26), User("Gabriele", 25))
+
+val query = s"where (NAME, AGE) in ($filterList)""")
+
+val query = SQL"""
+  select * from USERS
+  where (NAME, AGE) in $users
+"""
+```
+
+produces
+
+```SQL
+SELECT * FROM USERS
+WHERE (NAME, AGE) IN ((Federico, 26), (Gabriele, 25))
+```
 
 ## Installation
 Using sbt:
@@ -20,32 +42,42 @@ That's it.
 When using [anorm](https://github.com/playframework/anorm) this
 
 ```scala
-val query = "where PARAM in ({paramVal})"
-val paramVal = List("a", "b", "c")
+val params = List("a", "b", "c")
+val query = SQL"""
+  select * from FOO
+  where PARAM in $params
+"""
 ``` 
 
 is correctly mapped to
 
 ```sql
-where PARAM in ('a','b','c')
+SELECT * FROM FOO
+WHERE PARAM IN ('a','b','c')
 ```
 
-However, passing a `List` of tuples doesn't work:
+However, passing a `List` of tuples (or any other product type) doesn't work:
 
 ```scala
-val query = "where (PARAM1, PARAM2) in ({paramVal})"
-val paramVal = List(("a","b"), ("c","d"), ("e","f"))
+val params = List(("a","b"), ("c","d"), ("e","f"))
+val query = SQL"""
+  select * from FOO
+  where (PARAM1, PARAM2) in $params
+"""
 ```
 
 This is what we would expect:
 
-```sql
-where (PARAM1, PARAM2) in (('a','b'), ('c','d'), ('e','f'))
+```SQL
+SELECT * FROM FOO
+WHERE (PARAM1, PARAM2) IN (('a','b'), ('c','d'), ('e','f'))
 ```
 
 but it fails at compile time instead.
 
-**anorm-extensions** allows passing any `Product` (tuples, case classes, ...) as parameter in anorm.
+Similarly, we can't pass a tuple or a case class instance directly.
+
+**anorm-extensions** allows passing any `Product` (tuples, case classes, ...) as parameter in anorm, as shown in the example above.
 
 ## Under the hood
 
