@@ -11,4 +11,6 @@ libraryDependencies ++= Seq(
   "com.github.fommil"  %%  "spray-json-shapeless"  % "1.1.0"
 )
 
-publishTo := Some(Resolver.file("file", new File("releases")))
+bintrayOrganization := Some("buildo")
+
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
