@@ -1,3 +1,5 @@
+![](https://travis-ci.org/buildo/anorm-extensions.svg)
+
 # anorm-extensions
 
 Directly use instances of `Product` as parameters in [anorm](https://github.com/playframework/anorm) queries.
